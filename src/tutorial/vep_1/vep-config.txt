@@ -1,0 +1,43 @@
+##
+## shared memory allocation for this vep
+## - the starting addresses are RELATIVE to the start of the shared memory
+## - (no need to add 0x800[23]0000)
+## - you can use K for 1024 and hex or decimal
+## - size & address must use the same format (hex/dec no/K)
+## - use /opt/riscv/bin/riscv32-unknown-elf-size [-A] *.elf
+##   to analyse a partition's memory usage
+## - it's recommended to use shared/vep.h to manage this memory
+##
+# this VEP uses no shared memories
+##
+## memory and stack allocation for each partition
+## - per tile the system application with 32K is always added
+## - 8K, 16K, 32K, or 64K per partition
+## - max 128K per tile
+##
+on tile 0 partition 1 has 4K stack in 32K memory starting at 32K
+on tile 0 partition 2 has 4K stack in 32K memory starting at 64K
+on tile 0 partition 3 has 4K stack in 32K memory starting at 96K
+on tile 1 partition 1 has 4K stack in 32K memory starting at 32K
+on tile 1 partition 2 has 4K stack in 32K memory starting at 64K
+on tile 1 partition 3 has 4K stack in 32K memory starting at 96K
+on tile 2 partition 1 has 4K stack in 32K memory starting at 32K
+on tile 2 partition 2 has 4K stack in 32K memory starting at 64K
+on tile 2 partition 3 has 4K stack in 32K memory starting at 96K
+##
+## schedule for partitions that have a memory allocation
+## - the same length of slot table must be given for all slots
+## - max 32 slots per tile
+## - a partition can have more than one slot
+## - slots are separated by VKERNEL slots of 2000 cycles
+## - the system partition uses cycles 0-5000, thus first app slot starts at 7000
+##
+on tile 0 partition 1 has 10100 cycles of 43600 starting at  7000
+on tile 0 partition 2 has 10200 cycles of 43600 starting at 19100
+on tile 0 partition 3 has 10300 cycles of 43600 starting at 31300
+on tile 1 partition 1 has 10600 cycles of 43600 starting at 7000
+on tile 1 partition 2 has 10000 cycles of 43600 starting at 19600
+on tile 1 partition 3 has 10000 cycles of 43600 starting at 31600
+on tile 2 partition 1 has 10600 cycles of 43600 starting at  7000
+on tile 2 partition 2 has 10000 cycles of 43600 starting at 19600
+on tile 2 partition 3 has 10000 cycles of 43600 starting at 31600
